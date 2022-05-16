@@ -119,7 +119,7 @@ impl UrlScanner {
                 c if !has_scheme && !matches!(c, '(' | ')' | '[' | ']' | '{' | '}' | ' ') => {
                     // Detect the start for links using unicode when having links without a scheme,
                     // then looking for ASCII alpha characters is not enough
-                    first = Some(i);
+                   break;
                 }
                 _ => break,
             }

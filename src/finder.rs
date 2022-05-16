@@ -325,3 +325,19 @@ impl<'t> fmt::Debug for Spans<'t> {
         f.debug_struct("Spans").field("text", &self.text).finish()
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use crate::LinkFinder;
+
+    #[test]
+    pub fn test_international() {
+        let doc = "秋叶值波有88块送到您的账号了请您登录领取地址app6699.tv hello";
+        let mut finder = LinkFinder::new();
+        finder.url_must_have_scheme(false);
+        let mut links =  finder.links(doc);
+        let next = links.next().unwrap();
+        let link = &doc[next.start..next.end];
+        assert_eq!("app6699.tv", link);
+    }
+}
